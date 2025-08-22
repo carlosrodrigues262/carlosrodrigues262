@@ -898,28 +898,70 @@ export default function OctopusVisionLanding() {
                   </div>
 
                   <div className="flex justify-center my-6">
-                    <div
-                      className={`qr-code-wrapper cursor-pointer transition-all duration-300 ${qrCodeZoomed ? 'scale-150 z-50' : ''} ${isElderlyMode ? 'ring-4 ring-green-400 ring-opacity-50 animate-pulse' : ''}`}
-                      onClick={() => setQrCodeZoomed(!qrCodeZoomed)}
-                      title="Clique para ampliar o QR Code"
-                    >
-                      {qrCodeUrl ? (
-                        <div className="relative">
-                          <img src={qrCodeUrl} alt="QR Code PIX" className="w-64 h-64" />
-                          <div className="absolute top-2 right-2 bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
-                            {qrCodeZoomed ? '−' : '+'}
-                          </div>
-                          {isElderlyMode && (
-                            <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                              👆 Clique para ampliar
+                    <div className="text-center space-y-4">
+                      <div
+                        className={`qr-code-wrapper cursor-pointer transition-all duration-300 ${qrCodeZoomed ? 'scale-150 z-50' : ''} ${isElderlyMode ? 'ring-4 ring-green-400 ring-opacity-50 animate-pulse' : ''}`}
+                        onClick={() => setQrCodeZoomed(!qrCodeZoomed)}
+                        title="Clique para ampliar o QR Code"
+                      >
+                        {qrCodeUrl && qrCodeUrl.startsWith('data:image') ? (
+                          <div className="relative">
+                            <img
+                              src={qrCodeUrl}
+                              alt="QR Code PIX"
+                              className="w-64 h-64"
+                              onError={() => {
+                                console.error('Erro ao carregar imagem do QR Code')
+                                setQrCodeUrl('')
+                              }}
+                            />
+                            <div className="absolute top-2 right-2 bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+                              {qrCodeZoomed ? '−' : '+'}
                             </div>
-                          )}
+                            {isElderlyMode && (
+                              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                                👆 Clique para ampliar
+                              </div>
+                            )}
+                          </div>
+                        ) : (
+                          <div className="w-64 h-64 bg-gray-100 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg">
+                            {qrCodeUrl === '' ? (
+                              <div className="text-center">
+                                <div className="loading-spinner w-8 h-8 border-4 border-green-600 border-t-transparent rounded-full mb-2"></div>
+                                <p className="text-gray-600 text-sm">Gerando QR Code...</p>
+                              </div>
+                            ) : (
+                              <div className="text-center">
+                                <svg className="w-16 h-16 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                                </svg>
+                                <p className="text-gray-600 text-sm">Erro no QR Code</p>
+                                <p className="text-gray-500 text-xs">Use a opção "Copiar Código"</p>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Alternative Manual PIX */}
+                      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                        <h4 className="font-semibold text-yellow-800 mb-2">📱 Opção Manual (sem QR Code):</h4>
+                        <div className="space-y-2 text-sm">
+                          <div className="bg-white rounded px-3 py-2 border">
+                            <strong>Chave PIX:</strong> {pixKey}
+                          </div>
+                          <div className="bg-white rounded px-3 py-2 border">
+                            <strong>Valor:</strong> R$ {selectedProduct.price.toFixed(2)}
+                          </div>
+                          <div className="bg-white rounded px-3 py-2 border">
+                            <strong>Nome:</strong> OCTOPUS VISION
+                          </div>
                         </div>
-                      ) : (
-                        <div className="w-64 h-64 bg-gray-100 flex items-center justify-center">
-                          <div className="loading-spinner w-8 h-8 border-4 border-green-600 border-t-transparent rounded-full"></div>
-                        </div>
-                      )}
+                        <p className="text-yellow-700 text-xs mt-2">
+                          Digite essas informações manualmente no seu app do banco
+                        </p>
+                      </div>
                     </div>
                   </div>
 
