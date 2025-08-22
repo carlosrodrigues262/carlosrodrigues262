@@ -385,7 +385,7 @@ input[type="radio"]:checked {
 }
 
 .btn-secondary-enhanced {
-  @apply border-3 border-blue-600 text-blue-600 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform;
+  @apply border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform;
   border-width: 3px;
 }
 
