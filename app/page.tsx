@@ -118,10 +118,19 @@ export default function OctopusVisionLanding() {
     }
   }
 
-  const copyPixCode = () => {
-    const pixPayload = generatePixPayload(pixKey, selectedProduct.price, selectedProduct.name)
-    navigator.clipboard.writeText(pixPayload)
-    alert('Código PIX copiado! Cole no seu app do banco.')
+  const copyPixCode = async () => {
+    try {
+      const pixPayload = generatePixPayload(pixKey, selectedProduct.price, selectedProduct.name)
+      await navigator.clipboard.writeText(pixPayload)
+
+      if (isElderlyMode) {
+        alert('✅ SUCESSO!\n\nO código PIX foi copiado!\n\n📱 Agora vá para o app do seu banco:\n1. Toque em PIX\n2. Escolha "Colar código PIX"\n3. Cole o código copiado\n4. Confirme o pagamento')
+      } else {
+        alert('📋 Código PIX copiado! Cole no seu app do banco.')
+      }
+    } catch (error) {
+      alert('❌ Erro ao copiar. Tente novamente ou use o QR Code.')
+    }
   }
 
   const handlePayment = async () => {
