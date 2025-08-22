@@ -107,7 +107,10 @@ export default function OctopusVisionLanding() {
               <a href="#why-us" className="block px-3 py-2 text-gray-600">Por que Nós</a>
               <a href="#testimonials" className="block px-3 py-2 text-gray-600">Depoimentos</a>
               <a href="#faq" className="block px-3 py-2 text-gray-600">FAQ</a>
-              <button className="w-full mt-2 bg-blue-600 text-white px-6 py-2 rounded-lg">
+              <button
+                onClick={openPaymentModal}
+                className="w-full mt-2 bg-blue-600 text-white px-6 py-2 rounded-lg"
+              >
                 Comprar Agora
               </button>
             </div>
