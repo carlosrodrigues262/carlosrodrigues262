@@ -71,10 +71,63 @@ export default function OctopusVisionLanding() {
     setIsPaymentModalOpen(false)
   }
 
-  const handlePayment = () => {
-    // Simular processamento de pagamento
-    alert(`Processando pagamento via ${selectedPaymentMethod.toUpperCase()} - R$ ${selectedProduct.price.toFixed(2)}`)
-    setIsPaymentModalOpen(false)
+  const generatePixPayload = (pixKey: string, amount: number, description: string) => {
+    // Simplified PIX payload generator (EMV format)
+    const merchantName = "OCTOPUS VISION"
+    const merchantCity = "SAO PAULO"
+    const currency = "986" // BRL
+
+    // This is a simplified version - in production use a proper PIX library
+    const payload = `00020126580014br.gov.bcb.pix0136${pixKey}520400005303${currency}5802BR5913${merchantName}6009${merchantCity}62070503***6304`
+    return payload
+  }
+
+  const generateQRCode = async () => {
+    try {
+      const pixPayload = generatePixPayload(pixKey, selectedProduct.price, selectedProduct.name)
+      const qrUrl = await QRCode.toDataURL(pixPayload, {
+        width: 300,
+        margin: 2,
+        color: {
+          dark: '#166534', // Green
+          light: '#ffffff'
+        }
+      })
+      setQrCodeUrl(qrUrl)
+    } catch (error) {
+      console.error('Erro ao gerar QR Code:', error)
+    }
+  }
+
+  const copyPixCode = () => {
+    const pixPayload = generatePixPayload(pixKey, selectedProduct.price, selectedProduct.name)
+    navigator.clipboard.writeText(pixPayload)
+    alert('Código PIX copiado! Cole no seu app do banco.')
+  }
+
+  const handlePayment = async () => {
+    setIsProcessing(true)
+
+    if (selectedPaymentMethod === 'pix') {
+      await generateQRCode()
+      setShowPixDetails(true)
+      setIsProcessing(false)
+    } else {
+      // Simular processamento para outros métodos
+      setTimeout(() => {
+        setPaymentSuccess(true)
+        setIsProcessing(false)
+        setTimeout(() => {
+          setIsPaymentModalOpen(false)
+          setPaymentSuccess(false)
+          setShowPixDetails(false)
+        }, 2000)
+      }, 2000)
+    }
+  }
+
+  const toggleElderlyMode = () => {
+    setIsElderlyMode(!isElderlyMode)
   }
 
   return (
