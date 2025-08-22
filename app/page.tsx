@@ -67,6 +67,12 @@ export default function OctopusVisionLanding() {
 
   const openPaymentModal = () => {
     setIsPaymentModalOpen(true)
+    if (isElderlyMode) {
+      // Vibração tátil no celular se disponível
+      if (navigator.vibrate) {
+        navigator.vibrate(100)
+      }
+    }
   }
 
   const closePaymentModal = () => {
@@ -597,11 +603,16 @@ export default function OctopusVisionLanding() {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
               <p className="text-gray-400">Octopus Vision © 2025</p>
+              {isElderlyMode && (
+                <p className="text-gray-500 text-sm mt-2">
+                  👓 Modo Acessível Ativado - Atendimento: (11) 99999-9999
+                </p>
+              )}
             </div>
             <div className="flex space-x-6">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">Instagram</a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">Pinterest</a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">LinkedIn</a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">📷 Instagram</a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">📌 Pinterest</a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">💼 LinkedIn</a>
             </div>
           </div>
         </div>
