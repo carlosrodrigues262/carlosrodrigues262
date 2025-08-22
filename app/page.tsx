@@ -520,18 +520,32 @@ export default function OctopusVisionLanding() {
                 </button>
               </div>
 
-              {/* Product Summary */}
-              <div className="bg-gray-50 rounded-lg p-4 mb-6">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h3 className="font-semibold text-gray-900">{selectedProduct.name}</h3>
-                    <p className="text-sm text-gray-600">{selectedProduct.description}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-2xl font-bold text-blue-600">
-                      R$ {selectedProduct.price.toFixed(2)}
-                    </p>
-                  </div>
+              {/* Product Selection */}
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Escolha seu Modelo</h3>
+                <div className="space-y-3">
+                  {products.map((product, index) => (
+                    <label key={index} className="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                      <input
+                        type="radio"
+                        name="product"
+                        checked={selectedProduct.name === product.name}
+                        onChange={() => setSelectedProduct(product)}
+                        className="w-4 h-4 text-blue-600"
+                      />
+                      <div className="ml-3 flex-1">
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <h4 className="font-medium text-gray-900">{product.name}</h4>
+                            <p className="text-sm text-gray-600">{product.description}</p>
+                          </div>
+                          <p className="text-lg font-bold text-blue-600">
+                            R$ {product.price.toFixed(2)}
+                          </p>
+                        </div>
+                      </div>
+                    </label>
+                  ))}
                 </div>
               </div>
 
