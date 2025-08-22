@@ -15,6 +15,24 @@ export default function OctopusVisionLanding() {
     description: 'Óculos com design minimalista e lentes de alta performance'
   })
 
+  const products = [
+    {
+      name: 'Óculos Octopus Vision Classic',
+      price: 199.90,
+      description: 'Modelo clássico com proteção UV completa'
+    },
+    {
+      name: 'Óculos Octopus Vision Premium',
+      price: 299.90,
+      description: 'Óculos com design minimalista e lentes de alta performance'
+    },
+    {
+      name: 'Óculos Octopus Vision Pro',
+      price: 399.90,
+      description: 'Modelo profissional com filtro de luz azul avançado'
+    }
+  ]
+
   useEffect(() => {
     // Smooth scroll behavior
     const observer = new IntersectionObserver(
