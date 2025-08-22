@@ -134,16 +134,34 @@ export default function OctopusVisionLanding() {
 
   const copyPixCode = async () => {
     try {
+      // Try to copy the PIX payload first
       const pixPayload = generatePixPayload(pixKey, selectedProduct.price, selectedProduct.name)
-      await navigator.clipboard.writeText(pixPayload)
+      console.log('Tentando copiar código PIX:', pixPayload)
 
-      if (isElderlyMode) {
-        alert('✅ SUCESSO!\n\nO código PIX foi copiado!\n\n📱 Agora vá para o app do seu banco:\n1. Toque em PIX\n2. Escolha "Colar código PIX"\n3. Cole o código copiado\n4. Confirme o pagamento')
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(pixPayload)
+
+        if (isElderlyMode) {
+          alert('✅ SUCESSO!\n\nO código PIX foi copiado!\n\n📱 Agora vá para o app do seu banco:\n1. Toque em PIX\n2. Escolha "Colar código PIX" ou "PIX Copia e Cola"\n3. Cole o código copiado\n4. Confirme o pagamento de R$ ' + selectedProduct.price.toFixed(2))
+        } else {
+          alert('📋 Código PIX copiado! Cole no seu app do banco.')
+        }
       } else {
-        alert('📋 Código PIX copiado! Cole no seu app do banco.')
+        // Fallback: create a text area to copy manually
+        const textArea = document.createElement('textarea')
+        textArea.value = pixPayload
+        document.body.appendChild(textArea)
+        textArea.select()
+        document.execCommand('copy')
+        document.body.removeChild(textArea)
+
+        alert('📋 Código copiado (método alternativo)! Cole no seu app do banco.')
       }
     } catch (error) {
-      alert('❌ Erro ao copiar. Tente novamente ou use o QR Code.')
+      console.error('Erro ao copiar PIX:', error)
+      // Show the code for manual copy
+      const pixPayload = generatePixPayload(pixKey, selectedProduct.price, selectedProduct.name)
+      prompt('❌ Erro ao copiar automaticamente. Copie manualmente este código:', pixPayload)
     }
   }
 
@@ -787,7 +805,7 @@ export default function OctopusVisionLanding() {
                 <div className="mb-6 space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Número do Cartão
+                      Número do Cart��o
                     </label>
                     <input
                       type="text"
