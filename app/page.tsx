@@ -17,7 +17,7 @@ export default function OctopusVisionLanding() {
   })
   const [showPixDetails, setShowPixDetails] = useState(false)
   const [qrCodeUrl, setQrCodeUrl] = useState('')
-  const [pixKey] = useState('SEU_PIX_AQUI@exemplo.com') // Substitua pela sua chave PIX
+  const [pixKey] = useState('58305721841') // Chave PIX do usuário
   const [isElderlyMode, setIsElderlyMode] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
   const [paymentSuccess, setPaymentSuccess] = useState(false)
@@ -795,23 +795,131 @@ export default function OctopusVisionLanding() {
                 </div>
               </div>
 
+              {/* PIX QR Code Display */}
+              {showPixDetails && selectedPaymentMethod === 'pix' && (
+                <div className="pix-container mb-6">
+                  <div className="qr-code-instructions">
+                    <h3>🎯 Escaneie o QR Code</h3>
+                    <p>Use a câmera do seu celular ou app do banco</p>
+                  </div>
+
+                  <div className="flex justify-center my-6">
+                    <div className="qr-code-wrapper">
+                      {qrCodeUrl ? (
+                        <img src={qrCodeUrl} alt="QR Code PIX" className="w-64 h-64" />
+                      ) : (
+                        <div className="w-64 h-64 bg-gray-100 flex items-center justify-center">
+                          <div className="loading-spinner w-8 h-8 border-4 border-green-600 border-t-transparent rounded-full"></div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="text-center space-y-4">
+                    <div className="bg-green-100 border border-green-300 rounded-lg p-4">
+                      <p className="text-green-800 font-semibold">💰 Valor: R$ {selectedProduct.price.toFixed(2)}</p>
+                      <p className="text-green-700">📱 Chave PIX: {pixKey}</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <button
+                        onClick={copyPixCode}
+                        className="copy-button flex items-center justify-center space-x-2"
+                      >
+                        <ClipboardIcon className="w-5 h-5" />
+                        <span>📋 Copiar Código</span>
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          setPaymentSuccess(true)
+                          setTimeout(() => {
+                            setIsPaymentModalOpen(false)
+                            setPaymentSuccess(false)
+                            setShowPixDetails(false)
+                          }, 2000)
+                        }}
+                        className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all"
+                      >
+                        ✅ Paguei
+                      </button>
+                    </div>
+
+                    <div className="text-sm text-gray-600 space-y-2">
+                      <p>⏱️ <strong>Instruções:</strong></p>
+                      <ol className="text-left space-y-1 max-w-md mx-auto">
+                        <li>1️⃣ Abra o app do seu banco</li>
+                        <li>2️⃣ Escolha a opção PIX</li>
+                        <li>3️⃣ Escaneie o QR Code ou cole o código copiado</li>
+                        <li>4️⃣ Confirme o pagamento</li>
+                        <li>5️⃣ Clique em "Paguei" após confirmar</li>
+                      </ol>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Payment Success */}
+              {paymentSuccess && (
+                <div className="text-center py-8">
+                  <div className="success-checkmark w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <CheckCircleIcon className="w-10 h-10 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-green-600 mb-2">🎉 Pagamento Confirmado!</h3>
+                  <p className="text-green-700">Seu pedido foi processado com sucesso</p>
+                </div>
+              )}
+
               {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3">
-                <button
-                  onClick={closePaymentModal}
-                  className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  Cancelar
-                </button>
-                <button
-                  onClick={handlePayment}
-                  className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
-                >
-                  {selectedPaymentMethod === 'pix' && 'Gerar PIX'}
-                  {selectedPaymentMethod === 'credit' && 'Finalizar Compra'}
-                  {selectedPaymentMethod === 'boleto' && 'Gerar Boleto'}
-                </button>
-              </div>
+              {!showPixDetails && !paymentSuccess && (
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <button
+                    onClick={closePaymentModal}
+                    className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    onClick={handlePayment}
+                    disabled={isProcessing}
+                    className={`flex-1 px-6 py-3 rounded-lg font-semibold transition-all ${
+                      isProcessing
+                        ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                        : isElderlyMode
+                          ? 'btn-primary-enhanced'
+                          : 'bg-blue-600 text-white hover:bg-blue-700'
+                    }`}
+                  >
+                    {isProcessing ? (
+                      <div className="flex items-center justify-center space-x-2">
+                        <div className="loading-spinner w-5 h-5 border-2 border-white border-t-transparent rounded-full"></div>
+                        <span>Processando...</span>
+                      </div>
+                    ) : (
+                      <>
+                        {selectedPaymentMethod === 'pix' && '🎯 Gerar PIX'}
+                        {selectedPaymentMethod === 'credit' && '💳 Finalizar Compra'}
+                        {selectedPaymentMethod === 'boleto' && '📄 Gerar Boleto'}
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
+
+              {/* Back Button for PIX */}
+              {showPixDetails && !paymentSuccess && (
+                <div className="flex justify-center">
+                  <button
+                    onClick={() => {
+                      setShowPixDetails(false)
+                      setQrCodeUrl('')
+                    }}
+                    className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    ← Voltar
+                  </button>
+                </div>
+              )}
 
               {/* Security Notice */}
               <div className="mt-4 flex items-center justify-center text-sm text-gray-500 secure-indicator">
