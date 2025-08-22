@@ -22,6 +22,7 @@ export default function OctopusVisionLanding() {
   const [isProcessing, setIsProcessing] = useState(false)
   const [paymentSuccess, setPaymentSuccess] = useState(false)
   const [qrCodeZoomed, setQrCodeZoomed] = useState(false)
+  const [showHelp, setShowHelp] = useState(false)
 
   const products = [
     {
@@ -613,16 +614,63 @@ export default function OctopusVisionLanding() {
             <div className="p-6">
               {/* Modal Header */}
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">Finalizar Compra</h2>
-                <button
-                  onClick={closePaymentModal}
-                  className="text-gray-400 hover:text-gray-600 transition-colors"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
+                <h2 className={`font-bold text-gray-900 ${isElderlyMode ? 'text-3xl' : 'text-2xl'}`}>
+                  💳 Finalizar Compra
+                </h2>
+                <div className="flex items-center space-x-2">
+                  {isElderlyMode && (
+                    <button
+                      onClick={() => setShowHelp(!showHelp)}
+                      className="bg-blue-100 text-blue-600 p-2 rounded-full hover:bg-blue-200 transition-colors"
+                      title="Ajuda para pagamento"
+                    >
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </button>
+                  )}
+                  <button
+                    onClick={closePaymentModal}
+                    className="text-gray-400 hover:text-gray-600 transition-colors"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
               </div>
+
+              {/* Help Section for Elderly */}
+              {showHelp && isElderlyMode && (
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-6 animate-fade-in">
+                  <h3 className="text-xl font-bold text-blue-800 mb-4">🆘 Precisa de Ajuda?</h3>
+
+                  <div className="space-y-4 text-lg text-blue-700">
+                    <div className="bg-white rounded-lg p-4 shadow-sm">
+                      <h4 className="font-semibold mb-2">📞 Opção 1: Ligue para Nós</h4>
+                      <p className="text-xl font-bold text-green-600">(11) 99999-9999</p>
+                      <p className="text-sm">Nosso atendimento te ajuda pelo telefone</p>
+                    </div>
+
+                    <div className="bg-white rounded-lg p-4 shadow-sm">
+                      <h4 className="font-semibold mb-2">🏪 Opção 2: Vá ao Banco</h4>
+                      <p>Leve este celular/computador na agência do seu banco e peça ajuda para fazer o PIX</p>
+                    </div>
+
+                    <div className="bg-white rounded-lg p-4 shadow-sm">
+                      <h4 className="font-semibold mb-2">👨‍👩‍👧‍👦 Opção 3: Peça Ajuda</h4>
+                      <p>Chame um familiar ou amigo para te ajudar com o pagamento</p>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => setShowHelp(false)}
+                    className="mt-4 w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                  >
+                    ✅ Entendi, Obrigado!
+                  </button>
+                </div>
+              )}
 
               {/* Product Selection */}
               <div className="mb-6">
