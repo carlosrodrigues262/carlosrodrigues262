@@ -7,6 +7,13 @@ import { PlayIcon } from '@heroicons/react/24/outline'
 export default function OctopusVisionLanding() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeAccordion, setActiveAccordion] = useState<number | null>(null)
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('pix')
+  const [selectedProduct, setSelectedProduct] = useState({
+    name: 'Óculos Octopus Vision Premium',
+    price: 299.90,
+    description: 'Óculos com design minimalista e lentes de alta performance'
+  })
 
   useEffect(() => {
     // Smooth scroll behavior
