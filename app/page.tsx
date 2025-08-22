@@ -21,6 +21,7 @@ export default function OctopusVisionLanding() {
   const [isElderlyMode, setIsElderlyMode] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
   const [paymentSuccess, setPaymentSuccess] = useState(false)
+  const [qrCodeZoomed, setQrCodeZoomed] = useState(false)
 
   const products = [
     {
@@ -832,9 +833,23 @@ export default function OctopusVisionLanding() {
                   </div>
 
                   <div className="flex justify-center my-6">
-                    <div className="qr-code-wrapper">
+                    <div
+                      className={`qr-code-wrapper cursor-pointer transition-all duration-300 ${qrCodeZoomed ? 'scale-150 z-50' : ''} ${isElderlyMode ? 'ring-4 ring-green-400 ring-opacity-50 animate-pulse' : ''}`}
+                      onClick={() => setQrCodeZoomed(!qrCodeZoomed)}
+                      title="Clique para ampliar o QR Code"
+                    >
                       {qrCodeUrl ? (
-                        <img src={qrCodeUrl} alt="QR Code PIX" className="w-64 h-64" />
+                        <div className="relative">
+                          <img src={qrCodeUrl} alt="QR Code PIX" className="w-64 h-64" />
+                          <div className="absolute top-2 right-2 bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+                            {qrCodeZoomed ? '−' : '+'}
+                          </div>
+                          {isElderlyMode && (
+                            <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                              👆 Clique para ampliar
+                            </div>
+                          )}
+                        </div>
                       ) : (
                         <div className="w-64 h-64 bg-gray-100 flex items-center justify-center">
                           <div className="loading-spinner w-8 h-8 border-4 border-green-600 border-t-transparent rounded-full"></div>
@@ -842,6 +857,31 @@ export default function OctopusVisionLanding() {
                       )}
                     </div>
                   </div>
+
+                  {qrCodeZoomed && (
+                    <div
+                      className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
+                      onClick={() => setQrCodeZoomed(false)}
+                    >
+                      <div className="bg-white p-8 rounded-2xl max-w-md w-full mx-4">
+                        <div className="text-center mb-4">
+                          <h4 className="text-xl font-bold text-gray-900">📱 QR Code Ampliado</h4>
+                          <p className="text-gray-600">Escaneie com a câmera do seu celular</p>
+                        </div>
+                        <div className="flex justify-center">
+                          <img src={qrCodeUrl} alt="QR Code PIX Ampliado" className="w-80 h-80" />
+                        </div>
+                        <div className="text-center mt-4">
+                          <button
+                            onClick={() => setQrCodeZoomed(false)}
+                            className="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors"
+                          >
+                            ✕ Fechar
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   <div className="text-center space-y-4">
                     <div className="bg-green-100 border border-green-300 rounded-lg p-4">
