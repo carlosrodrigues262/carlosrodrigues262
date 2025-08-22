@@ -1,0 +1,476 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-start-rgb));
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Animation classes */
+.animate-fade-in {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.animate-on-scroll.animate-fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Custom utility classes */
+.text-gradient {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.gradient-bg {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+/* Button hover effects */
+.btn-primary {
+  @apply bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform;
+}
+
+.btn-primary:hover {
+  @apply bg-blue-700 scale-105 shadow-lg;
+}
+
+.btn-secondary {
+  @apply border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg font-semibold transition-all duration-300;
+}
+
+.btn-secondary:hover {
+  @apply border-blue-600 text-blue-600 shadow-md;
+}
+
+/* Card hover effects */
+.card-hover {
+  @apply transition-all duration-300 transform;
+}
+
+.card-hover:hover {
+  @apply scale-105 shadow-xl;
+}
+
+/* Mobile responsiveness enhancements */
+@media (max-width: 640px) {
+  .hero-title {
+    font-size: 2.5rem;
+    line-height: 1.1;
+  }
+
+  .hero-subtitle {
+    font-size: 1.125rem;
+  }
+
+  .section-padding {
+    padding: 3rem 0;
+  }
+}
+
+/* Smooth scrolling for navigation links */
+a[href^="#"] {
+  scroll-behavior: smooth;
+}
+
+/* Loading animation for images */
+img {
+  transition: opacity 0.3s ease-in-out;
+}
+
+img:not([src]) {
+  opacity: 0;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+/* Payment Modal Styles */
+.payment-modal {
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.payment-modal-content {
+  animation: scaleIn 0.3s ease-out;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Radio button custom styling */
+input[type="radio"]:checked {
+  accent-color: #2563eb;
+}
+
+/* Form input focus effects */
+.form-input:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: #2563eb;
+}
+
+/* Payment method cards hover effect */
+.payment-method-card {
+  transition: all 0.2s ease-in-out;
+}
+
+.payment-method-card:hover {
+  background-color: #f9fafb;
+  border-color: #2563eb;
+}
+
+.payment-method-card input[type="radio"]:checked + .payment-method-content {
+  border-color: #2563eb;
+  background-color: #eff6ff;
+}
+
+/* Secure payment indicator */
+.secure-indicator {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Mobile payment modal adjustments */
+@media (max-width: 640px) {
+  .payment-modal-content {
+    margin: 1rem;
+    max-height: calc(100vh - 2rem);
+  }
+}
+
+/* Elderly-Friendly Accessibility Styles */
+.elderly-friendly {
+  font-size: 1.125rem; /* Larger base font */
+  line-height: 1.6;
+}
+
+.elderly-friendly h1 {
+  font-size: 3rem;
+}
+
+.elderly-friendly h2 {
+  font-size: 2.25rem;
+}
+
+.elderly-friendly h3 {
+  font-size: 1.875rem;
+}
+
+.elderly-friendly p {
+  font-size: 1.25rem;
+  line-height: 1.7;
+}
+
+.elderly-friendly button {
+  font-size: 1.25rem;
+  padding: 1rem 2rem;
+  min-height: 3.5rem;
+  font-weight: 600;
+}
+
+.elderly-friendly .payment-method-card {
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.elderly-friendly .payment-method-card span {
+  font-size: 1.25rem;
+}
+
+.elderly-friendly .payment-method-card p {
+  font-size: 1.125rem;
+}
+
+.elderly-friendly input,
+.elderly-friendly select {
+  font-size: 1.125rem;
+  padding: 0.875rem 1rem;
+  min-height: 3rem;
+}
+
+.elderly-friendly label {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+/* Enhanced Button Animations */
+@keyframes buttonPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+  }
+}
+
+@keyframes buttonShine {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes buttonBounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -8px, 0);
+  }
+  70% {
+    transform: translate3d(0, -4px, 0);
+  }
+  90% {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+@keyframes iconSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Enhanced Button Classes */
+.btn-primary-enhanced {
+  @apply bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-500 transform relative overflow-hidden;
+  background: linear-gradient(45deg, #2563eb, #3b82f6, #60a5fa, #3b82f6, #2563eb);
+  background-size: 300% 300%;
+  animation: buttonShine 4s ease-in-out infinite;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+}
+
+.btn-primary-enhanced:hover {
+  @apply scale-110;
+  animation: buttonPulse 1.2s infinite, buttonShine 4s ease-in-out infinite;
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.6);
+  transform: scale(1.1) translateY(-2px);
+}
+
+.btn-primary-enhanced:active {
+  animation: buttonBounce 0.8s ease-in-out;
+  transform: scale(1.05) translateY(0px);
+}
+
+.btn-secondary-enhanced {
+  @apply border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform;
+  border-width: 3px;
+}
+
+.btn-secondary-enhanced:hover {
+  @apply bg-blue-600 text-white scale-105 shadow-xl;
+  animation: buttonPulse 1s infinite;
+}
+
+/* PIX QR Code Styles */
+.pix-container {
+  @apply bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl p-6;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.qr-code-wrapper {
+  @apply bg-white p-4 rounded-xl shadow-lg border-2 border-green-300;
+  animation: scaleIn 0.6s ease-out 0.2s both;
+  transition: all 0.3s ease-in-out;
+}
+
+.qr-code-wrapper:hover {
+  @apply shadow-2xl;
+  transform: scale(1.05);
+}
+
+.qr-code-instructions {
+  @apply text-center space-y-3;
+}
+
+.qr-code-instructions h3 {
+  @apply text-2xl font-bold text-green-800;
+  animation: slideInLeft 0.6s ease-out 0.4s both;
+}
+
+.qr-code-instructions p {
+  @apply text-lg text-green-700;
+  animation: slideInRight 0.6s ease-out 0.6s both;
+}
+
+.copy-button {
+  @apply bg-green-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-green-700 hover:scale-105;
+  animation: buttonBounce 0.6s ease-out 0.8s both;
+}
+
+/* High contrast mode for better accessibility */
+.high-contrast {
+  filter: contrast(1.2) brightness(1.1);
+}
+
+.high-contrast button {
+  border: 2px solid currentColor;
+  font-weight: 700;
+}
+
+/* Focus indicators for keyboard navigation */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid #fbbf24;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px rgba(251, 191, 36, 0.3);
+}
+
+/* Loading animation */
+.loading-spinner {
+  animation: iconSpin 1s linear infinite;
+}
+
+/* Success checkmark animation */
+@keyframes checkmark {
+  0% {
+    transform: scale(0) rotate(45deg);
+  }
+  50% {
+    transform: scale(0.8) rotate(45deg);
+  }
+  100% {
+    transform: scale(1) rotate(45deg);
+  }
+}
+
+.success-checkmark {
+  animation: checkmark 0.6s ease-out;
+}
