@@ -152,11 +152,20 @@ export default function OctopusVisionLanding() {
               </div>
             </div>
 
-            {/* CTA Button */}
-            <div className="hidden md:block">
+            {/* Accessibility Toggle */}
+            <div className="hidden lg:flex items-center space-x-4">
+              <button
+                onClick={toggleElderlyMode}
+                className="text-sm text-gray-600 hover:text-blue-600 transition-colors"
+                title={isElderlyMode ? "Desativar modo acessível" : "Ativar modo acessível"}
+              >
+                {isElderlyMode ? '👁️ Normal' : '👓 Acessível'}
+              </button>
+
+              {/* CTA Button */}
               <button
                 onClick={openPaymentModal}
-                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                className={isElderlyMode ? "btn-primary-enhanced" : "bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105"}
               >
                 Comprar Agora
               </button>
