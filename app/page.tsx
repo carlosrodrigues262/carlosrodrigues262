@@ -864,15 +864,57 @@ export default function OctopusVisionLanding() {
                       </button>
                     </div>
 
-                    <div className="text-sm text-gray-600 space-y-2">
-                      <p>⏱️ <strong>Instruções:</strong></p>
-                      <ol className="text-left space-y-1 max-w-md mx-auto">
-                        <li>1️⃣ Abra o app do seu banco</li>
-                        <li>2️⃣ Escolha a opção PIX</li>
-                        <li>3️⃣ Escaneie o QR Code ou cole o código copiado</li>
-                        <li>4️⃣ Confirme o pagamento</li>
-                        <li>5️⃣ Clique em "Paguei" após confirmar</li>
-                      </ol>
+                    <div className={`space-y-4 ${isElderlyMode ? 'text-lg' : 'text-sm'} text-gray-700`}>
+                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <p className="font-bold text-blue-800 mb-3">📱 <strong>Como Pagar com PIX:</strong></p>
+                        <ol className={`text-left space-y-3 ${isElderlyMode ? 'text-xl leading-relaxed' : ''}`}>
+                          <li className="flex items-start space-x-3">
+                            <span className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">1</span>
+                            <span>📱 Abra o aplicativo do seu banco no celular</span>
+                          </li>
+                          <li className="flex items-start space-x-3">
+                            <span className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">2</span>
+                            <span>🔍 Procure e toque na opção "PIX"</span>
+                          </li>
+                          <li className="flex items-start space-x-3">
+                            <span className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">3</span>
+                            <span>📷 Escolha "Ler QR Code" ou "Pagar com QR Code"</span>
+                          </li>
+                          <li className="flex items-start space-x-3">
+                            <span className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">4</span>
+                            <span>📸 Aponte a câmera para o QR Code acima</span>
+                          </li>
+                          <li className="flex items-start space-x-3">
+                            <span className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">5</span>
+                            <span>✅ Confirme o valor R$ {selectedProduct.price.toFixed(2)} e finalize</span>
+                          </li>
+                          <li className="flex items-start space-x-3">
+                            <span className="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">6</span>
+                            <span>🎉 Clique em "Paguei" aqui quando terminar</span>
+                          </li>
+                        </ol>
+                      </div>
+
+                      {isElderlyMode && (
+                        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                          <p className="text-yellow-800 font-semibold text-lg">
+                            ⚠️ <strong>Dica Importante:</strong>
+                          </p>
+                          <p className="text-yellow-700 text-lg mt-2">
+                            Se tiver dificuldade, peça ajuda a um familiar ou vá até uma agência do seu banco.
+                            Eles podem te ajudar a fazer o pagamento PIX.
+                          </p>
+                        </div>
+                      )}
+
+                      <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+                        <p className="text-green-800 font-semibold">
+                          ✅ <strong>Bancos Compatíveis:</strong>
+                        </p>
+                        <p className="text-green-700 text-sm mt-1">
+                          Itaú, Bradesco, Banco do Brasil, Santander, Caixa, Nubank, Inter, C6 Bank, e todos os outros bancos brasileiros
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
