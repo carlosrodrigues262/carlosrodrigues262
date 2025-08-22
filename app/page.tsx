@@ -523,7 +523,7 @@ export default function OctopusVisionLanding() {
 
                 <div className="space-y-3">
                   {/* PIX */}
-                  <label className="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                  <label className="payment-method-card flex items-center p-4 border rounded-lg cursor-pointer">
                     <input
                       type="radio"
                       name="payment"
@@ -532,7 +532,7 @@ export default function OctopusVisionLanding() {
                       onChange={(e) => setSelectedPaymentMethod(e.target.value)}
                       className="w-4 h-4 text-blue-600"
                     />
-                    <div className="ml-3 flex-1">
+                    <div className="payment-method-content ml-3 flex-1">
                       <div className="flex items-center justify-between">
                         <span className="font-medium text-gray-900">PIX</span>
                         <span className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded">Instantâneo</span>
@@ -542,7 +542,7 @@ export default function OctopusVisionLanding() {
                   </label>
 
                   {/* Cartão de Crédito */}
-                  <label className="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                  <label className="payment-method-card flex items-center p-4 border rounded-lg cursor-pointer">
                     <input
                       type="radio"
                       name="payment"
@@ -551,7 +551,7 @@ export default function OctopusVisionLanding() {
                       onChange={(e) => setSelectedPaymentMethod(e.target.value)}
                       className="w-4 h-4 text-blue-600"
                     />
-                    <div className="ml-3 flex-1">
+                    <div className="payment-method-content ml-3 flex-1">
                       <div className="flex items-center justify-between">
                         <span className="font-medium text-gray-900">Cartão de Crédito</span>
                         <span className="text-sm text-gray-600">até 12x</span>
@@ -561,7 +561,7 @@ export default function OctopusVisionLanding() {
                   </label>
 
                   {/* Boleto */}
-                  <label className="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                  <label className="payment-method-card flex items-center p-4 border rounded-lg cursor-pointer">
                     <input
                       type="radio"
                       name="payment"
@@ -570,7 +570,7 @@ export default function OctopusVisionLanding() {
                       onChange={(e) => setSelectedPaymentMethod(e.target.value)}
                       className="w-4 h-4 text-blue-600"
                     />
-                    <div className="ml-3 flex-1">
+                    <div className="payment-method-content ml-3 flex-1">
                       <div className="flex items-center justify-between">
                         <span className="font-medium text-gray-900">Boleto Bancário</span>
                         <span className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded">5% desc.</span>
