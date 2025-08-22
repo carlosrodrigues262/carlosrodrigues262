@@ -72,13 +72,32 @@ export default function OctopusVisionLanding() {
   }
 
   const generatePixPayload = (pixKey: string, amount: number, description: string) => {
-    // Simplified PIX payload generator (EMV format)
-    const merchantName = "OCTOPUS VISION"
+    // PIX payload generator (EMV format)
+    const merchantName = "OCTOPUS VISION LTDA"
     const merchantCity = "SAO PAULO"
     const currency = "986" // BRL
+    const countryCode = "BR"
 
-    // This is a simplified version - in production use a proper PIX library
-    const payload = `00020126580014br.gov.bcb.pix0136${pixKey}520400005303${currency}5802BR5913${merchantName}6009${merchantCity}62070503***6304`
+    // Format amount with 2 decimal places
+    const formattedAmount = amount.toFixed(2)
+
+    // Build PIX payload according to EMV standard
+    const pixKeyLength = pixKey.length.toString().padStart(2, '0')
+    const merchantNameLength = merchantName.length.toString().padStart(2, '0')
+    const merchantCityLength = merchantCity.length.toString().padStart(2, '0')
+    const amountLength = formattedAmount.length.toString().padStart(2, '0')
+
+    // Create payload without CRC
+    let payload = "00020101021126" // Static data
+    payload += `580014br.gov.bcb.pix01${pixKeyLength}${pixKey}` // PIX key
+    payload += "52040000" // Merchant category
+    payload += `5303${currency}` // Currency
+    payload += `54${amountLength}${formattedAmount}` // Amount
+    payload += `5802${countryCode}` // Country
+    payload += `59${merchantNameLength}${merchantName}` // Merchant name
+    payload += `60${merchantCityLength}${merchantCity}` // Merchant city
+    payload += "6304" // CRC placeholder
+
     return payload
   }
 
