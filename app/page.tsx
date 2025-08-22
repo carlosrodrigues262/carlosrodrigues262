@@ -1,8 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { ChevronDownIcon, CheckCircleIcon, StarIcon } from '@heroicons/react/24/solid'
+import { ChevronDownIcon, CheckCircleIcon, StarIcon, ClipboardIcon } from '@heroicons/react/24/solid'
 import { PlayIcon } from '@heroicons/react/24/outline'
+import QRCode from 'qrcode'
 
 export default function OctopusVisionLanding() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -14,6 +15,12 @@ export default function OctopusVisionLanding() {
     price: 299.90,
     description: 'Óculos com design minimalista e lentes de alta performance'
   })
+  const [showPixDetails, setShowPixDetails] = useState(false)
+  const [qrCodeUrl, setQrCodeUrl] = useState('')
+  const [pixKey] = useState('SEU_PIX_AQUI@exemplo.com') // Substitua pela sua chave PIX
+  const [isElderlyMode, setIsElderlyMode] = useState(false)
+  const [isProcessing, setIsProcessing] = useState(false)
+  const [paymentSuccess, setPaymentSuccess] = useState(false)
 
   const products = [
     {
