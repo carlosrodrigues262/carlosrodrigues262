@@ -959,6 +959,7 @@ export default function OctopusVisionLanding() {
 
                       <button
                         onClick={() => {
+                          if (navigator.vibrate) navigator.vibrate(200)
                           setPaymentSuccess(true)
                           setTimeout(() => {
                             setIsPaymentModalOpen(false)
@@ -966,9 +967,13 @@ export default function OctopusVisionLanding() {
                             setShowPixDetails(false)
                           }, 2000)
                         }}
-                        className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all"
+                        className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+                          isElderlyMode
+                            ? 'bg-green-600 text-white text-xl py-4 hover:bg-green-700 transform hover:scale-105 animate-pulse'
+                            : 'bg-blue-600 text-white hover:bg-blue-700'
+                        }`}
                       >
-                        ✅ Paguei
+                        ✅ {isElderlyMode ? 'JÁ PAGUEI!' : 'Paguei'}
                       </button>
                     </div>
 
