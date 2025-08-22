@@ -202,3 +202,62 @@ img:not([src]) {
 ::-webkit-scrollbar-thumb:hover {
   background: #a1a1a1;
 }
+
+/* Payment Modal Styles */
+.payment-modal {
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.payment-modal-content {
+  animation: scaleIn 0.3s ease-out;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Radio button custom styling */
+input[type="radio"]:checked {
+  accent-color: #2563eb;
+}
+
+/* Form input focus effects */
+.form-input:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: #2563eb;
+}
+
+/* Payment method cards hover effect */
+.payment-method-card {
+  transition: all 0.2s ease-in-out;
+}
+
+.payment-method-card:hover {
+  background-color: #f9fafb;
+  border-color: #2563eb;
+}
+
+.payment-method-card input[type="radio"]:checked + .payment-method-content {
+  border-color: #2563eb;
+  background-color: #eff6ff;
+}
+
+/* Secure payment indicator */
+.secure-indicator {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Mobile payment modal adjustments */
+@media (max-width: 640px) {
+  .payment-modal-content {
+    margin: 1rem;
+    max-height: calc(100vh - 2rem);
+  }
+}
