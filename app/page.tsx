@@ -612,7 +612,7 @@ export default function OctopusVisionLanding() {
                       <input
                         type="text"
                         placeholder="123"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="form-input w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                   </div>
@@ -623,14 +623,14 @@ export default function OctopusVisionLanding() {
                     <input
                       type="text"
                       placeholder="Nome como está no cartão"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="form-input w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Parcelas
                     </label>
-                    <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <select className="form-input w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                       <option>1x de R$ {selectedProduct.price.toFixed(2)} sem juros</option>
                       <option>2x de R$ {(selectedProduct.price / 2).toFixed(2)} sem juros</option>
                       <option>3x de R$ {(selectedProduct.price / 3).toFixed(2)} sem juros</option>
@@ -652,7 +652,7 @@ export default function OctopusVisionLanding() {
                     <input
                       type="text"
                       placeholder="Seu nome"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="form-input w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
@@ -662,7 +662,7 @@ export default function OctopusVisionLanding() {
                     <input
                       type="text"
                       placeholder="000.000.000-00"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="form-input w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                 </div>
@@ -673,7 +673,7 @@ export default function OctopusVisionLanding() {
                   <input
                     type="email"
                     placeholder="seu@email.com"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="form-input w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div>
@@ -683,7 +683,7 @@ export default function OctopusVisionLanding() {
                   <input
                     type="tel"
                     placeholder="(11) 99999-9999"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="form-input w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
