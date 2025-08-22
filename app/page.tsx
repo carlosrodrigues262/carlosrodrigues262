@@ -195,10 +195,16 @@ export default function OctopusVisionLanding() {
               <a href="#testimonials" className="block px-3 py-2 text-gray-600">Depoimentos</a>
               <a href="#faq" className="block px-3 py-2 text-gray-600">FAQ</a>
               <button
-                onClick={openPaymentModal}
-                className="w-full mt-2 bg-blue-600 text-white px-6 py-2 rounded-lg"
+                onClick={toggleElderlyMode}
+                className="w-full mt-2 mb-2 border border-gray-300 text-gray-700 px-6 py-2 rounded-lg"
               >
-                Comprar Agora
+                {isElderlyMode ? '👁️ Modo Normal' : '👓 Modo Acessível'}
+              </button>
+              <button
+                onClick={openPaymentModal}
+                className={isElderlyMode ? "btn-primary-enhanced w-full" : "w-full mt-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"}
+              >
+                💳 Comprar Agora
               </button>
             </div>
           </div>
