@@ -38,6 +38,20 @@ export default function OctopusVisionLanding() {
     setActiveAccordion(activeAccordion === index ? null : index)
   }
 
+  const openPaymentModal = () => {
+    setIsPaymentModalOpen(true)
+  }
+
+  const closePaymentModal = () => {
+    setIsPaymentModalOpen(false)
+  }
+
+  const handlePayment = () => {
+    // Simular processamento de pagamento
+    alert(`Processando pagamento via ${selectedPaymentMethod.toUpperCase()} - R$ ${selectedProduct.price.toFixed(2)}`)
+    setIsPaymentModalOpen(false)
+  }
+
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
