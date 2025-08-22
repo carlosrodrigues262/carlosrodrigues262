@@ -369,19 +369,23 @@ input[type="radio"]:checked {
 
 /* Enhanced Button Classes */
 .btn-primary-enhanced {
-  @apply bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform relative overflow-hidden;
+  @apply bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-500 transform relative overflow-hidden;
   background: linear-gradient(45deg, #2563eb, #3b82f6, #60a5fa, #3b82f6, #2563eb);
   background-size: 300% 300%;
-  animation: buttonShine 3s ease-in-out infinite;
+  animation: buttonShine 4s ease-in-out infinite;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
 }
 
 .btn-primary-enhanced:hover {
-  @apply scale-110 shadow-2xl;
-  animation: buttonPulse 1s infinite, buttonShine 3s ease-in-out infinite;
+  @apply scale-110;
+  animation: buttonPulse 1.2s infinite, buttonShine 4s ease-in-out infinite;
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.6);
+  transform: scale(1.1) translateY(-2px);
 }
 
 .btn-primary-enhanced:active {
-  animation: buttonBounce 0.6s ease-in-out;
+  animation: buttonBounce 0.8s ease-in-out;
+  transform: scale(1.05) translateY(0px);
 }
 
 .btn-secondary-enhanced {
@@ -403,6 +407,12 @@ input[type="radio"]:checked {
 .qr-code-wrapper {
   @apply bg-white p-4 rounded-xl shadow-lg border-2 border-green-300;
   animation: scaleIn 0.6s ease-out 0.2s both;
+  transition: all 0.3s ease-in-out;
+}
+
+.qr-code-wrapper:hover {
+  @apply shadow-2xl;
+  transform: scale(1.05);
 }
 
 .qr-code-instructions {
