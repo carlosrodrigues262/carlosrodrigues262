@@ -483,6 +483,240 @@ export default function OctopusVisionLanding() {
           </div>
         </div>
       </footer>
+
+      {/* Payment Modal */}
+      {isPaymentModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              {/* Modal Header */}
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">Finalizar Compra</h2>
+                <button
+                  onClick={closePaymentModal}
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Product Summary */}
+              <div className="bg-gray-50 rounded-lg p-4 mb-6">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h3 className="font-semibold text-gray-900">{selectedProduct.name}</h3>
+                    <p className="text-sm text-gray-600">{selectedProduct.description}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-2xl font-bold text-blue-600">
+                      R$ {selectedProduct.price.toFixed(2)}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Payment Methods */}
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Método de Pagamento</h3>
+
+                <div className="space-y-3">
+                  {/* PIX */}
+                  <label className="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="pix"
+                      checked={selectedPaymentMethod === 'pix'}
+                      onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+                      className="w-4 h-4 text-blue-600"
+                    />
+                    <div className="ml-3 flex-1">
+                      <div className="flex items-center justify-between">
+                        <span className="font-medium text-gray-900">PIX</span>
+                        <span className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded">Instantâneo</span>
+                      </div>
+                      <p className="text-sm text-gray-600">Pagamento imediato via código QR</p>
+                    </div>
+                  </label>
+
+                  {/* Cartão de Crédito */}
+                  <label className="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="credit"
+                      checked={selectedPaymentMethod === 'credit'}
+                      onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+                      className="w-4 h-4 text-blue-600"
+                    />
+                    <div className="ml-3 flex-1">
+                      <div className="flex items-center justify-between">
+                        <span className="font-medium text-gray-900">Cartão de Crédito</span>
+                        <span className="text-sm text-gray-600">até 12x</span>
+                      </div>
+                      <p className="text-sm text-gray-600">Visa, Mastercard, Elo</p>
+                    </div>
+                  </label>
+
+                  {/* Boleto */}
+                  <label className="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                    <input
+                      type="radio"
+                      name="payment"
+                      value="boleto"
+                      checked={selectedPaymentMethod === 'boleto'}
+                      onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+                      className="w-4 h-4 text-blue-600"
+                    />
+                    <div className="ml-3 flex-1">
+                      <div className="flex items-center justify-between">
+                        <span className="font-medium text-gray-900">Boleto Bancário</span>
+                        <span className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded">5% desc.</span>
+                      </div>
+                      <p className="text-sm text-gray-600">Vencimento em 3 dias úteis</p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              {/* Payment Details */}
+              {selectedPaymentMethod === 'credit' && (
+                <div className="mb-6 space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Número do Cartão
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="1234 5678 9012 3456"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Validade
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="MM/AA"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        CVV
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="123"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Nome no Cartão
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Nome como está no cartão"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Parcelas
+                    </label>
+                    <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                      <option>1x de R$ {selectedProduct.price.toFixed(2)} sem juros</option>
+                      <option>2x de R$ {(selectedProduct.price / 2).toFixed(2)} sem juros</option>
+                      <option>3x de R$ {(selectedProduct.price / 3).toFixed(2)} sem juros</option>
+                      <option>6x de R$ {(selectedProduct.price / 6).toFixed(2)} sem juros</option>
+                      <option>12x de R$ {(selectedProduct.price / 12).toFixed(2)} sem juros</option>
+                    </select>
+                  </div>
+                </div>
+              )}
+
+              {/* Customer Info */}
+              <div className="mb-6 space-y-4">
+                <h3 className="text-lg font-semibold text-gray-900">Dados Pessoais</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Nome
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Seu nome"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      CPF
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="000.000.000-00"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="seu@email.com"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Telefone
+                  </label>
+                  <input
+                    type="tel"
+                    placeholder="(11) 99999-9999"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={closePaymentModal}
+                  className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  Cancelar
+                </button>
+                <button
+                  onClick={handlePayment}
+                  className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+                >
+                  {selectedPaymentMethod === 'pix' && 'Gerar PIX'}
+                  {selectedPaymentMethod === 'credit' && 'Finalizar Compra'}
+                  {selectedPaymentMethod === 'boleto' && 'Gerar Boleto'}
+                </button>
+              </div>
+
+              {/* Security Notice */}
+              <div className="mt-4 flex items-center justify-center text-sm text-gray-500">
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-9a2 2 0 00-2-2H6a2 2 0 00-2 2v9a2 2 0 002 2zm10-12V6a2 2 0 00-2-2H8a2 2 0 00-2 2v3h8V6z" />
+                </svg>
+                Pagamento 100% seguro e criptografado
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
