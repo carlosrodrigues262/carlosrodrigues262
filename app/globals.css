@@ -261,3 +261,206 @@ input[type="radio"]:checked {
     max-height: calc(100vh - 2rem);
   }
 }
+
+/* Elderly-Friendly Accessibility Styles */
+.elderly-friendly {
+  font-size: 1.125rem; /* Larger base font */
+  line-height: 1.6;
+}
+
+.elderly-friendly h1 {
+  font-size: 3rem;
+}
+
+.elderly-friendly h2 {
+  font-size: 2.25rem;
+}
+
+.elderly-friendly h3 {
+  font-size: 1.875rem;
+}
+
+.elderly-friendly p {
+  font-size: 1.25rem;
+  line-height: 1.7;
+}
+
+.elderly-friendly button {
+  font-size: 1.25rem;
+  padding: 1rem 2rem;
+  min-height: 3.5rem;
+  font-weight: 600;
+}
+
+.elderly-friendly .payment-method-card {
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.elderly-friendly .payment-method-card span {
+  font-size: 1.25rem;
+}
+
+.elderly-friendly .payment-method-card p {
+  font-size: 1.125rem;
+}
+
+.elderly-friendly input,
+.elderly-friendly select {
+  font-size: 1.125rem;
+  padding: 0.875rem 1rem;
+  min-height: 3rem;
+}
+
+.elderly-friendly label {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+/* Enhanced Button Animations */
+@keyframes buttonPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+  }
+}
+
+@keyframes buttonShine {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes buttonBounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -8px, 0);
+  }
+  70% {
+    transform: translate3d(0, -4px, 0);
+  }
+  90% {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+@keyframes iconSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Enhanced Button Classes */
+.btn-primary-enhanced {
+  @apply bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform relative overflow-hidden;
+  background: linear-gradient(45deg, #2563eb, #3b82f6, #60a5fa, #3b82f6, #2563eb);
+  background-size: 300% 300%;
+  animation: buttonShine 3s ease-in-out infinite;
+}
+
+.btn-primary-enhanced:hover {
+  @apply scale-110 shadow-2xl;
+  animation: buttonPulse 1s infinite, buttonShine 3s ease-in-out infinite;
+}
+
+.btn-primary-enhanced:active {
+  animation: buttonBounce 0.6s ease-in-out;
+}
+
+.btn-secondary-enhanced {
+  @apply border-3 border-blue-600 text-blue-600 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform;
+  border-width: 3px;
+}
+
+.btn-secondary-enhanced:hover {
+  @apply bg-blue-600 text-white scale-105 shadow-xl;
+  animation: buttonPulse 1s infinite;
+}
+
+/* PIX QR Code Styles */
+.pix-container {
+  @apply bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl p-6;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.qr-code-wrapper {
+  @apply bg-white p-4 rounded-xl shadow-lg border-2 border-green-300;
+  animation: scaleIn 0.6s ease-out 0.2s both;
+}
+
+.qr-code-instructions {
+  @apply text-center space-y-3;
+}
+
+.qr-code-instructions h3 {
+  @apply text-2xl font-bold text-green-800;
+  animation: slideInLeft 0.6s ease-out 0.4s both;
+}
+
+.qr-code-instructions p {
+  @apply text-lg text-green-700;
+  animation: slideInRight 0.6s ease-out 0.6s both;
+}
+
+.copy-button {
+  @apply bg-green-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-green-700 hover:scale-105;
+  animation: buttonBounce 0.6s ease-out 0.8s both;
+}
+
+/* High contrast mode for better accessibility */
+.high-contrast {
+  filter: contrast(1.2) brightness(1.1);
+}
+
+.high-contrast button {
+  border: 2px solid currentColor;
+  font-weight: 700;
+}
+
+/* Focus indicators for keyboard navigation */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid #fbbf24;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px rgba(251, 191, 36, 0.3);
+}
+
+/* Loading animation */
+.loading-spinner {
+  animation: iconSpin 1s linear infinite;
+}
+
+/* Success checkmark animation */
+@keyframes checkmark {
+  0% {
+    transform: scale(0) rotate(45deg);
+  }
+  50% {
+    transform: scale(0.8) rotate(45deg);
+  }
+  100% {
+    transform: scale(1) rotate(45deg);
+  }
+}
+
+.success-checkmark {
+  animation: checkmark 0.6s ease-out;
+}
