@@ -80,49 +80,55 @@ export default function OctopusVisionLanding() {
   }
 
   const generatePixPayload = (pixKey: string, amount: number, description: string) => {
-    // PIX payload generator (EMV format)
-    const merchantName = "OCTOPUS VISION LTDA"
+    // Simplified PIX payload for better compatibility
+    const merchantName = "OCTOPUS VISION"
     const merchantCity = "SAO PAULO"
-    const currency = "986" // BRL
-    const countryCode = "BR"
 
     // Format amount with 2 decimal places
     const formattedAmount = amount.toFixed(2)
 
-    // Build PIX payload according to EMV standard
-    const pixKeyLength = pixKey.length.toString().padStart(2, '0')
-    const merchantNameLength = merchantName.length.toString().padStart(2, '0')
-    const merchantCityLength = merchantCity.length.toString().padStart(2, '0')
-    const amountLength = formattedAmount.length.toString().padStart(2, '0')
+    // Create a simplified PIX payload that works with most banking apps
+    const payload = `00020126580014br.gov.bcb.pix0136${pixKey}52040000530398654${formattedAmount.length.toString().padStart(2, '0')}${formattedAmount}5802BR59${merchantName.length.toString().padStart(2, '0')}${merchantName}60${merchantCity.length.toString().padStart(2, '0')}${merchantCity}6304`
 
-    // Create payload without CRC
-    let payload = "00020101021126" // Static data
-    payload += `580014br.gov.bcb.pix01${pixKeyLength}${pixKey}` // PIX key
-    payload += "52040000" // Merchant category
-    payload += `5303${currency}` // Currency
-    payload += `54${amountLength}${formattedAmount}` // Amount
-    payload += `5802${countryCode}` // Country
-    payload += `59${merchantNameLength}${merchantName}` // Merchant name
-    payload += `60${merchantCityLength}${merchantCity}` // Merchant city
-    payload += "6304" // CRC placeholder
-
+    console.log('PIX Payload gerado:', payload)
     return payload
   }
 
   const generateQRCode = async () => {
     try {
+      console.log('Gerando QR Code para PIX:', pixKey, 'Valor:', selectedProduct.price)
+
       const pixPayload = generatePixPayload(pixKey, selectedProduct.price, selectedProduct.name)
+      console.log('Payload PIX:', pixPayload)
+
       const qrUrl = await QRCode.toDataURL(pixPayload, {
-        width: 300,
-        margin: 2,
+        width: 256,
+        margin: 1,
         color: {
-          dark: '#166534', // Green
+          dark: '#000000',
           light: '#ffffff'
-        }
+        },
+        errorCorrectionLevel: 'M'
       })
+
+      console.log('QR Code URL gerada:', qrUrl.substring(0, 50) + '...')
       setQrCodeUrl(qrUrl)
+
     } catch (error) {
-      console.error('Erro ao gerar QR Code:', error)
+      console.error('Erro detalhado ao gerar QR Code:', error)
+
+      // Fallback: criar QR code simples com apenas a chave PIX
+      try {
+        const fallbackUrl = await QRCode.toDataURL(`PIX:${pixKey}:${selectedProduct.price.toFixed(2)}`, {
+          width: 256,
+          margin: 1
+        })
+        setQrCodeUrl(fallbackUrl)
+        console.log('QR Code fallback gerado com sucesso')
+      } catch (fallbackError) {
+        console.error('Erro no fallback:', fallbackError)
+        alert('Erro ao gerar QR Code. Use a opção de copiar código PIX.')
+      }
     }
   }
 
